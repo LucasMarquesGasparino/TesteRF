@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Index</title>
+		<meta charset = "UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+		<!script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+		<!script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="Scripts/material.min.js"></script>
+		<script src="Scripts/angular.min.js"></script>
+		<script src="Scripts/Main.js"></script>
+		<script src="Scripts/Text.js"></script>
+
+	</head>
+	<body>
+		<div ng-app="MyApp">
+			<form name="MyForm" ng-controller="TopLevel">
+			
+				<!Campo de Inserção para o Nome>
+				<div class = "mdl-textfield mdl-js-textfield">
+				
+					<input class = "mdl-textfield__input" type="text"  name="fieldName" size="40" ng-model="fieldName.value"/><br />
+					<label class = "mdl-textfield__label" name = "label1">{{ labelName }}</label>
+					
+				</div>
+				<br>
+				
+				<!Campo de Inserção para o Telefone>
+				<div class = "mdl-textfield mdl-js-textfield">
+				
+					<input class = "mdl-textfield__input" type="numbers" pattern = "-?([0-9]|[(,)]*(\.[0-9]+)?" ng-change="adjustPhoneInput()" name="fieldPhone" size="40" ng-model="fieldPhone.value"/><br />
+					<label class = "mdl-textfield__label" name = "label2">{{ labelPhone }}</label>
+					<span class  = "mdl-textfield__error">{{ labelPhoneError }}</span>
+					
+				</div>
+				
+				<br>
+				
+				<!Campo de Inserção para o E-mail>
+				<div class = "mdl-textfield mdl-js-textfield">
+				
+					<input class = "mdl-textfield__input" type="email" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="fieldEmailAdress" size="40" ng-model="fieldEmailAdress.value"/><br />
+					<label class = "mdl-textfield__label" name = "label3">{{ labelEmailAdress }}</label>
+					<span class  = "mdl-textfield__error">{{ labelEmailAdressError }}</span>
+					
+				</div>
+				
+				<a href="" ng-click="changeLanguage()">Click Me</a>
+					
+					<div class="spacer-large">
+						<b>Field Data:</b><br /><br />
+						<div class="field-area">
+							<label>{{ field1.label }}:</label>"{{ field1.value }}" - V[{{ MyForm.field1.$valid }}]<br />
+							<label>{{ field2.label }}:</label>"{{ field2.value }}" - V[{{ MyForm.field2.$valid }}]<br />
+							<label>{{ field3.label }}:</label>"{{ field3.value }}" - V[{{ MyForm.field3.$valid }}]<br /><br />
+							<label>Overall Form:</label> D[{{ MyForm.$dirty }}], P[{{ MyForm.$pristine }}], V[{{ MyForm.$valid }}]
+						</div>
+					</div>
+					<div class="spacer-large">
+						<b>Form JSON:</b><br ><br />
+						<pre class="json-out">
+							{{ MyForm | json }}
+						</pre>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
