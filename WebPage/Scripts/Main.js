@@ -4,7 +4,7 @@ angular.module('ui', [
     'ui.filters',
     'ui.directives']).value('ui.config', {});
 
-angular.module('MyApp', ['ui.directives'])
+angular.module('MyApp', ['ui.directives']);
 
 .controller('TopLevel', function ($scope) {
     //$scope.field1 = {label: 'Field 1', value: 'My Spoon is Too Big'};
@@ -30,18 +30,13 @@ angular.module('MyApp', ['ui.directives'])
 	}
 	
 	$scope.changeLanguage();
-	
-	
-    $scope.adjustPhoneInput = function() {
 		
-		if ($scope.fieldPhone.value.length == 2){
-			if (!($scope.fieldPhone.value.charAt(0) == '(')){
-				$scope.fieldPhone.value = "(" + $scope.fieldPhone.value + ")";
-			}
-		}
+	var removeNonNumbers = function(theText) {
 		
 		var isItANumber = false;
-		var lastChar   = $scope.fieldPhone.value.charAt(lengthText - 1);
+		var lengthText  = theText.length;
+		var lastChar    = theText.charAt(lengthText - 1);
+		
 		for (var i = 0; i < 10; i++){
 			if (lastChar == i){
 				isItANumber = true;
@@ -49,26 +44,36 @@ angular.module('MyApp', ['ui.directives'])
 		}
 		
 		if (!isItANumber){
-			$scope.fieldPhone.value = $scope.fieldPhone.value.slice(0, -1);
+			theText = theText.slice(0, -1);
 		}
 		
-
-		
+		return theText;
 	}
 	
-    $scope.doValidate = function (myForm) {
-        var formValid = myForm.$valid;
-        if (!formValid) {
-            angular.forEach(myForm, function (value) {
-                if (value && value.hasOwnProperty('$modelValue') && !value.$valid) {
-                    console.log(value);
-                    console.log($scope[value.$name]);
-                    alert('Field "' + $scope[value.$name].label + '" is invalid.');
-                }
-            });
-        }
-        return formValid;
-    };
-});
+    $scope.adjustPhoneInput = function() {
+			
+		$scope.fieldPhone.value = removeNonNumbers($scope.fieldPhone.value);
+		
+		// Pressionado backSpace
+	//	if (event.keyCode === 8){
+		//	if (lengthText == 5 || lengthText == 2){
+		//		$scope.fieldPhone.value = fieldPhoneText.slice(0, -1);
+		//	}			
+		//}
+			
+	}
+	
+	$scope.showlist = function() {
+		$http({
+			method: 'POST',
+			url: '/get_records',
+		}).then(function(response) {
+			$scope.people = response.data;
+			console.log('mm', $scope.people);
+		}, function(error) {
+			alert(error);
+		});
+	}
+	
 
-;
+}
