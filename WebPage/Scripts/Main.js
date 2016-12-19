@@ -4,7 +4,7 @@ angular.module('ui', [
     'ui.filters',
     'ui.directives']).value('ui.config', {});
 
-angular.module('MyApp', ['ui.directives']);
+angular.module('MyApp', ['ui.directives'])
 
 .controller('TopLevel', function ($scope) {
     //$scope.field1 = {label: 'Field 1', value: 'My Spoon is Too Big'};
@@ -30,7 +30,7 @@ angular.module('MyApp', ['ui.directives']);
 	}
 	
 	$scope.changeLanguage();
-		
+	
 	var removeNonNumbers = function(theText) {
 		
 		var isItANumber = false;
@@ -51,16 +51,9 @@ angular.module('MyApp', ['ui.directives']);
 	}
 	
     $scope.adjustPhoneInput = function() {
-			
+		
 		$scope.fieldPhone.value = removeNonNumbers($scope.fieldPhone.value);
 		
-		// Pressionado backSpace
-	//	if (event.keyCode === 8){
-		//	if (lengthText == 5 || lengthText == 2){
-		//		$scope.fieldPhone.value = fieldPhoneText.slice(0, -1);
-		//	}			
-		//}
-			
 	}
 	
 	$scope.showlist = function() {
@@ -72,8 +65,9 @@ angular.module('MyApp', ['ui.directives']);
 			console.log('mm', $scope.people);
 		}, function(error) {
 			alert(error);
-		});
-	}
+		})
+	};
 	
+});
 
-}
+;
