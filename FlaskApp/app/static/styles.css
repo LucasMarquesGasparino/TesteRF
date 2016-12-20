@@ -1,0 +1,11 @@
+.content-grid {
+	max-width: 840px;
+	max-height: device-height;
+}
+
+nav ul{overflow-y:scroll;}
+
+#peopleList {
+	max-height: 500px;
+	overflow-y: auto;
+}

@@ -3,21 +3,30 @@
 	<head onload = ">
 		<title>Index</title>
 		<meta charset = "UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="static/MDL/material.min.css">
 		<link rel="stylesheet" href="/static/icon.css">
+		<link rel="stylesheet" href="/static/styles.css">
 		<script src="static/MDL/material.min.js"></script>
 		<script src="static/angular.min.js"></script>
 		<script src="static/Main.js"></script>
 		<script src="static/Text.js"></script>	
 		
 	</head>
-	<body>
-		<div ng-app="MyApp">
-			<form name="MyForm" ng-controller="TopLevel">
+	<body rf-resize layout="row" class="layout-row">
+
+		<div class="content-grid mdl-grid mdl-layout--fixed-header" ng-app="MyApp" ng-controller="TopLevel">
+		
+			<header class="mdl-layout__header mdl-color--cyan-200">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Teste para WaterMelon</span>
+				</div>
+			</header>
+			
+			<div class="md-cell mdl-cell--5-col mdl-cell--3-col-tablet mdl-cell--1-col-phone">
 			
 				<!Campo de Inserção para o Nome>
-				<div class = "mdl-textfield mdl-js-textfield">
+				<div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				
 					<input class = "mdl-textfield__input" type="text"  name="fieldName" size="40" ng-model="info.nome"/><br />
 					<label class = "mdl-textfield__label" name = "label1">Nome</label>
@@ -26,7 +35,7 @@
 				<br>
 				
 				<!Campo de Inserção para o Telefone>
-				<div class = "mdl-textfield mdl-js-textfield">
+				<div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				
 					<input class = "mdl-textfield__input" type="numbers" ng-change = "adjustPhoneInput()" ng-pattern = "-?([0-9]|[(,)]*(\.[0-9]+)?" name="fieldPhone" size="40" ng-model="info.telefone"/><br />
 					<label class = "mdl-textfield__label" name = "label2">Telefone</label>
@@ -37,7 +46,7 @@
 				<br>
 				
 				<!Campo de Inserção para o E-mail>
-				<div class = "mdl-textfield mdl-js-textfield">
+				<div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				
 					<input class = "mdl-textfield__input" type="email" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="fieldEmailAdress" size="40" ng-model="info.email"/><br />
 					<label class = "mdl-textfield__label" name = "label3">E-mail</label>
@@ -45,16 +54,19 @@
 					
 				</div>
 				
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--colored" ng-click="insertRecord(); showList()">
-					Enviar
-				</button>
-				
+				<div>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="insertRecord(); showList()">
+						Enviar
+					</button>
+				</div>
+			</div>
+			<div class="md-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--3-col-phone" id = "divList">
 				<!-- Icon List -->
 				
 				<h1 ng-repeat="x in records">{{x}}</h1>
 
-				<ul class="demo-list-three mdl-list">
-					<li class="mdl-list__item mdl-list__item--three-line" ng-repeat = "x in myData">
+				<ul class="demo-list-three mdl-list" id="peopleList">
+					<li class="mdl-list__item mdl-list__item--three-line" ng-repeat = "x in myData | orderBy:'nome'">
 						<span class="mdl-list__item-primary-content">
 							<i class="material-icons mdl-list__item-avatar">person</i>
 							<span>{{'{{x.nome}}'}}</span>
@@ -65,7 +77,7 @@
 						</span>
 					</li>
 				</ul>	
-			</form>
+			</div>
 		</div>	
 	</body>
 </html>
