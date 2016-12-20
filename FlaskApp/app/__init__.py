@@ -7,6 +7,7 @@ from flask import jsonify
 from flask import render_template
 
 app = Flask(__name__)
+
 client = MongoClient()
 teste_db = client.teste_db
 
@@ -28,11 +29,9 @@ def get_records():
                 'email':person['email']
             };
             listaOrganizada.append(personItem);
-        for person in listaOrganizada:
-            print person
     except Exception,e:
         return str(e)
-    a = json.dumps(listaOrganizada)
+    a = jsonify(listaOrganizada)
     return a
 
 @app.route('/insert_records', methods=['POST'])

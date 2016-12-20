@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+	<head onload = ">
 		<title>Index</title>
 		<meta charset = "UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="static/MDL/material.min.css">
+		<link rel="stylesheet" href="/static/icon.css">
 		<script src="static/MDL/material.min.js"></script>
 		<script src="static/angular.min.js"></script>
 		<script src="static/Main.js"></script>
 		<script src="static/Text.js"></script>	
+		
 	</head>
 	<body>
 		<div ng-app="MyApp">
@@ -18,7 +20,7 @@
 				<div class = "mdl-textfield mdl-js-textfield">
 				
 					<input class = "mdl-textfield__input" type="text"  name="fieldName" size="40" ng-model="fieldName.value"/><br />
-					<label class = "mdl-textfield__label" name = "label1">{{ labelName }}</label>
+					<label class = "mdl-textfield__label" name = "label1">Nome</label>
 					
 				</div>
 				<br>
@@ -27,8 +29,8 @@
 				<div class = "mdl-textfield mdl-js-textfield">
 				
 					<input class = "mdl-textfield__input" type="numbers" ng-change = "adjustPhoneInput()" ng-pattern = "-?([0-9]|[(,)]*(\.[0-9]+)?" name="fieldPhone" size="40" ng-model="fieldPhone.value"/><br />
-					<label class = "mdl-textfield__label" name = "label2">{{ labelPhone }}</label>
-					<span class  = "mdl-textfield__error">{{ labelPhoneError }}</span>
+					<label class = "mdl-textfield__label" name = "label2">Telefone</label>
+					<span class  = "mdl-textfield__error">Telefone não-válido</span>
 					
 				</div>
 				
@@ -38,15 +40,32 @@
 				<div class = "mdl-textfield mdl-js-textfield">
 				
 					<input class = "mdl-textfield__input" type="email" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="fieldEmailAdress" size="40" ng-model="fieldEmailAdress.value"/><br />
-					<label class = "mdl-textfield__label" name = "label3">{{ labelEmailAdress }}</label>
-					<span class  = "mdl-textfield__error">{{ labelEmailAdressError }}</span>
+					<label class = "mdl-textfield__label" name = "label3">E-mail</label>
+					<span class  = "mdl-textfield__error">Endereço de e-mail não-válido</span>
 					
 				</div>
 				
-				<a href="" ng-click="showList()">Click Me</a>		
-					
-			</form>
-		</div>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--colored" ng-click="showList()">
+					Enviar
+				</button>
 				
+				<!-- Icon List -->
+				
+				<h1 ng-repeat="x in records">{{x}}</h1>
+
+				<ul class="demo-list-three mdl-list">
+					<li class="mdl-list__item mdl-list__item--three-line" ng-repeat = "x in myData">
+						<span class="mdl-list__item-primary-content">
+							<i class="material-icons mdl-list__item-avatar">person</i>
+							<span>{{'{{x.nome}}'}}</span>
+							<span class="mdl-list__item-text-body">
+								{{'{{x.telefone}}'}} <br>
+								{{'{{x.email}}'}}
+							</span>
+						</span>
+					</li>
+				</ul>	
+			</form>
+		</div>	
 	</body>
 </html>

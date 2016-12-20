@@ -11,7 +11,16 @@ angular.module('MyApp', ['ui.directives'])
     //$scope.field2 = {label: 'Field 2', value: 'I am a banana!'};
     //$scope.field3 = {label: 'Field 3', value: 'queen.of@france.com'};
 	
+	$scope.records = [
+        "Alfreds Futterkiste",
+        "Berglunds snabbköp",
+        "Centro comercial Moctezuma",
+        "Ernst Handel",
+    ];
 	
+	$http.get("http://localhost:5000/get_records") 	
+		.then( function(response) { $scope.myData = response.data }, function(error) {alert(error.data); alert(error.status)});
+		
 	$scope.changeLanguage = function() {
 		if ($scope.labelName == "Nome"){
 			$scope.labelName = englishText[0];
@@ -69,7 +78,7 @@ angular.module('MyApp', ['ui.directives'])
 	$scope.showList = function() {	
 		//changeLanguage();
 		$http.get("http://localhost:5000/get_records") 	
-		.then( function(response) {alert(JSON.stringify(response))}, function(error) {alert(error.data); alert(error.status)});
+		.then( function(response) { $scope.myData = response.data }, function(error) {alert(error.data); alert(error.status)});
 	};
 	
 	$scope.insertRecord = function() {
