@@ -5,12 +5,13 @@ from flask import Flask
 from pymongo import MongoClient
 from flask import jsonify
 from flask import render_template
+from flask import request
 
 app = Flask(__name__)
 
 client = MongoClient()
 teste_db = client.teste_db
-
+catalogo = teste_db.catalogo
 
 @app.route('/')
 def index():
@@ -19,7 +20,6 @@ def index():
 @app.route('/get_records', methods=['GET'])
 def get_records():
     try:
-        catalogo = teste_db.catalogo
         collection = catalogo.find()
         listaOrganizada = []
         for person in collection:
@@ -37,15 +37,15 @@ def get_records():
 @app.route('/insert_records', methods=['POST'])
 def insert_records():
     try:
-        json_data = request.json['info']
-        name = json_data['nome']
-        phoneNumber = json_data['telefone']
-        emailAdress = json_data['email']
+        post = request.get_json(force=True)
+        name = post.get('nome')
+        phoneNumber = post.get('telefone')
+        emailAdress = post.get('email')
 
         catalogo.insert_one({
             'nome':name,
-            'email':phoneNumber,
-            'telefone':emailAdress
+            'telefone':phoneNumber,
+            'email':emailAdress
 	})
         return jsonify(status='OK',message='inserted successfully')
 

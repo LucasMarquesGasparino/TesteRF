@@ -19,7 +19,7 @@
 				<!Campo de Inserção para o Nome>
 				<div class = "mdl-textfield mdl-js-textfield">
 				
-					<input class = "mdl-textfield__input" type="text"  name="fieldName" size="40" ng-model="fieldName.value"/><br />
+					<input class = "mdl-textfield__input" type="text"  name="fieldName" size="40" ng-model="info.nome"/><br />
 					<label class = "mdl-textfield__label" name = "label1">Nome</label>
 					
 				</div>
@@ -28,7 +28,7 @@
 				<!Campo de Inserção para o Telefone>
 				<div class = "mdl-textfield mdl-js-textfield">
 				
-					<input class = "mdl-textfield__input" type="numbers" ng-change = "adjustPhoneInput()" ng-pattern = "-?([0-9]|[(,)]*(\.[0-9]+)?" name="fieldPhone" size="40" ng-model="fieldPhone.value"/><br />
+					<input class = "mdl-textfield__input" type="numbers" ng-change = "adjustPhoneInput()" ng-pattern = "-?([0-9]|[(,)]*(\.[0-9]+)?" name="fieldPhone" size="40" ng-model="info.telefone"/><br />
 					<label class = "mdl-textfield__label" name = "label2">Telefone</label>
 					<span class  = "mdl-textfield__error">Telefone não-válido</span>
 					
@@ -39,13 +39,13 @@
 				<!Campo de Inserção para o E-mail>
 				<div class = "mdl-textfield mdl-js-textfield">
 				
-					<input class = "mdl-textfield__input" type="email" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="fieldEmailAdress" size="40" ng-model="fieldEmailAdress.value"/><br />
+					<input class = "mdl-textfield__input" type="email" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="fieldEmailAdress" size="40" ng-model="info.email"/><br />
 					<label class = "mdl-textfield__label" name = "label3">E-mail</label>
 					<span class  = "mdl-textfield__error">Endereço de e-mail não-válido</span>
 					
 				</div>
 				
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--colored" ng-click="showList()">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--colored" ng-click="insertRecord(); showList()">
 					Enviar
 				</button>
 				

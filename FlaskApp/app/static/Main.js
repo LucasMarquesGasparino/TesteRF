@@ -11,12 +11,7 @@ angular.module('MyApp', ['ui.directives'])
     //$scope.field2 = {label: 'Field 2', value: 'I am a banana!'};
     //$scope.field3 = {label: 'Field 3', value: 'queen.of@france.com'};
 	
-	$scope.records = [
-        "Alfreds Futterkiste",
-        "Berglunds snabbköp",
-        "Centro comercial Moctezuma",
-        "Ernst Handel",
-    ];
+	$scope.info = {};
 	
 	$http.get("http://localhost:5000/get_records") 	
 		.then( function(response) { $scope.myData = response.data }, function(error) {alert(error.data); alert(error.status)});
@@ -82,7 +77,17 @@ angular.module('MyApp', ['ui.directives'])
 	};
 	
 	$scope.insertRecord = function() {
-		
+		 $http({
+            url: 'http://localhost:5000/insert_records',
+            method: "POST",
+            data: JSON.stringify($scope.info),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (data) {
+                alert("Inserido com sucesso"); 
+            }, function (data, status) {
+                alert(status);
+            });
+
 	}
 	
 });
