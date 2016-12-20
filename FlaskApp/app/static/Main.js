@@ -6,7 +6,7 @@ angular.module('ui', [
 
 angular.module('MyApp', ['ui.directives'])
 
-.controller('TopLevel', function ($scope) {
+.controller('TopLevel', function ($scope, $http) {
     //$scope.field1 = {label: 'Field 1', value: 'My Spoon is Too Big'};
     //$scope.field2 = {label: 'Field 2', value: 'I am a banana!'};
     //$scope.field3 = {label: 'Field 3', value: 'queen.of@france.com'};
@@ -56,17 +56,25 @@ angular.module('MyApp', ['ui.directives'])
 		
 	}
 	
-	$scope.showlist = function() {
-		$http({
-			method: 'POST',
-			url: '/get_records',
-		}).then(function(response) {
+	function successCallback(response) {
+			alert("Working");
 			$scope.people = response.data;
 			console.log('mm', $scope.people);
-		}, function(error) {
+	}
+	
+	var erro = function errorCallback(response) {
 			alert(error);
-		})
+	}
+	
+	$scope.showList = function() {	
+		//changeLanguage();
+		$http.get("http://localhost:5000/get_records") 	
+		.then( function(response) {alert(JSON.stringify(response))}, function(error) {alert(error.data); alert(error.status)});
 	};
+	
+	$scope.insertRecord = function() {
+		
+	}
 	
 });
 

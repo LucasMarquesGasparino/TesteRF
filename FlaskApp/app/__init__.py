@@ -3,44 +3,45 @@ import pprint
 import json
 from flask import Flask
 from pymongo import MongoClient
+from flask import jsonify
+from flask import render_template
 
 app = Flask(__name__)
-client = MongoClient("localhost")
+client = MongoClient()
 teste_db = client.teste_db
-catalogo = teste_db.catalogo
 
 
 @app.route('/')
 def index():
-    return "index"
-   
+    return render_template('Index.html');
 
-	
-if __name__ == "__main__":
-    app.run()
-
-@app.route('/get_records', methods=['POST'])
+@app.route('/get_records', methods=['GET'])
 def get_records():
     try:
+        catalogo = teste_db.catalogo
         collection = catalogo.find()
         listaOrganizada = []
         for person in collection:
             personItem = {
-                'name': person['nome'],
-                'phoneNumber': person['telefone'],
-                'emailAdress': person['email']
-            }
-            listaOrganizada.append(personItem)
+                'nome':person['nome'],
+                'telefone':person['telefone'],
+                'email':person['email']
+            };
+            listaOrganizada.append(personItem);
+        for person in listaOrganizada:
+            print person
     except Exception,e:
         return str(e)
-    return json.dumps(listaOrganizada)
+    a = json.dumps(listaOrganizada)
+    return a
 
 @app.route('/insert_records', methods=['POST'])
 def insert_records():
     try:
-        name = request.json['name']
-        phoneNumber = json_data['phoneNumber']
-        emailAdress = json_data['emailAdress']
+        json_data = request.json['info']
+        name = json_data['nome']
+        phoneNumber = json_data['telefone']
+        emailAdress = json_data['email']
 
         catalogo.insert_one({
             'nome':name,
@@ -51,6 +52,9 @@ def insert_records():
 
     except Exception,e:
         return jsonify(status='ERROR',message=str(e))
+   
+if __name__ == "__main__":
+    app.run()
 
 
 
