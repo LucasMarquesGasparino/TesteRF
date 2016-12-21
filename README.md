@@ -5,7 +5,7 @@ Requisitos: MongoDB 3.4, Python 2.7.12 e Sistema Operacional 64 Bits
 Observações: durante o desenvolvimento, a aplicação flask foi hospedada em localhost, com porta 5000;
 	o banco de dados também foi hospedado em localhost, na porta 27017; assim, a aplicação rodará sem problemas no servidor local padrão.
 	
-Testes: foram feitos no Google Chrome.
+Testes: foram feitos no Google Chrome e no Microsoft Edge
 
 Informações:
 
