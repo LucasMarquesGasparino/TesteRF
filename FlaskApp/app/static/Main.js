@@ -17,29 +17,8 @@ angular.module('MyApp', ['ui.directives'])
 	$scope.info = {};
 	
 	// Obtenção das tuplas do banco de dados a partir de bivícuoa transmissão com a aplicação Flask
-	$http.get("http://localhost:5000/get_records") 	
+	$http.get("/get_records") 	
 		.then( function(response) { $scope.myData = response.data }, function(error) {alert(error.data); alert(error.status)});
-		
-		
-	$scope.changeLanguage = function() {
-		if ($scope.labelName == "Nome"){
-			$scope.labelName = englishText[0];
-			$scope.labelPhone = englishText[1];
-			$scope.labelEmailAdress = englishText[2];
-			$scope.labelPhoneError = englishText[3];
-			$scope.labelEmailAdressError = englishText[4];
-		}
-		else {
-			$scope.labelName = portugueseText[0];
-			$scope.labelPhone = portugueseText[1];
-			$scope.labelEmailAdress = portugueseText[2];
-			$scope.labelPhoneError = portugueseText[3];
-			$scope.labelEmailAdressError = portugueseText[4];
-		}
-	}
-	
-	$scope.changeLanguage();
-	
 	
 	//--------------------------------------------------------------
 	// Eliminação do último caractere no caso de ele não ser número
@@ -107,7 +86,7 @@ angular.module('MyApp', ['ui.directives'])
 	// Responsável pela obtenção e exibição das tuplas do banco de dados
 	$scope.showList = function() {	
 		// Obtenção dos dados do BD a partir da aplicação Flask
-		$http.get("http://localhost:5000/get_records") 	
+		$http.get("/get_records") 	
 		.then( function(response) { $scope.myData = response.data }, function(error) {alert(error.data); alert(error.status)});
 	};
 	
@@ -120,7 +99,7 @@ angular.module('MyApp', ['ui.directives'])
 		$scope.info.telefone = insertToString($scope.info.telefone, " ", 2);
 		// Realiza o envio dos dados pelo protocolo http
 		$http({
-            url: 'http://localhost:5000/insert_records',
+            url: '/insert_records',
             method: "POST",
             data: JSON.stringify($scope.info),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
