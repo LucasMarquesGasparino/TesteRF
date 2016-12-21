@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head onload = ">
-		<title>Index</title>
+		<title>Teste para WaterMelon</title>
 		<meta charset = "UTF-8" />
+		<! Redimensionamento com quaisquer dispositivos >
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<! Importação de MDL, AngularJS e scripts/css do projeto>
 		<link rel="stylesheet" href="static/MDL/material.min.css">
 		<link rel="stylesheet" href="/static/icon.css">
 		<link rel="stylesheet" href="/static/styles.css">
@@ -13,17 +15,21 @@
 		<script src="static/Text.js"></script>	
 		
 	</head>
+	<! Corpo dinamicamente redimensionável>
 	<body rf-resize layout="row" class="layout-row">
-
+		
+		<!Frame Principal, com controlador geral em angularJS> 
 		<div class="content-grid mdl-grid mdl-layout--fixed-header" ng-app="MyApp" ng-controller="TopLevel">
 		
+			<! Cabeçário fixo >
 			<header class="mdl-layout__header mdl-color--cyan-200">
 				<div class="mdl-layout__header-row">
 					<span class="mdl-layout-title">Teste para WaterMelon</span>
 				</div>
 			</header>
 			
-			<div class="md-cell mdl-cell--5-col mdl-cell--3-col-tablet mdl-cell--1-col-phone">
+			<! Primeira das duas colunas - é a da esquerda, com os campos de inserção e o botão>
+			<div class="md-cell mdl-cell--5-col mdl-cell--3-col-tablet mdl-cell--1-col-phone" ng-form="myForm">
 			
 				<!Campo de Inserção para o Nome>
 				<div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -37,9 +43,9 @@
 				<!Campo de Inserção para o Telefone>
 				<div class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				
-					<input class = "mdl-textfield__input" type="numbers" ng-change = "adjustPhoneInput()" ng-pattern = "-?([0-9]|[(,)]*(\.[0-9]+)?" name="fieldPhone" size="40" ng-model="info.telefone"/><br />
+					<input class = "mdl-textfield__input" ng-model-options="{allowInvalid: true}" ng-change = "adjustPhoneInput()" pattern = "[0-9]{10,11}$" name="fieldPhone" size="40" ng-model="info.telefone"/><br />
 					<label class = "mdl-textfield__label" name = "label2">Telefone</label>
-					<span class  = "mdl-textfield__error">Telefone não-válido</span>
+					<span class  = "mdl-textfield__error" >Telefone inválido</span>
 					
 				</div>
 				
@@ -50,24 +56,29 @@
 				
 					<input class = "mdl-textfield__input" type="email" pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="fieldEmailAdress" size="40" ng-model="info.email"/><br />
 					<label class = "mdl-textfield__label" name = "label3">E-mail</label>
-					<span class  = "mdl-textfield__error">Endereço de e-mail não-válido</span>
+					<span class  = "mdl-textfield__error">Endereço de e-mail inválido</span>
 					
 				</div>
 				
+				<! Botão Enviar, desabilitado quando os campos são inválidos ou vazios>
 				<div>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="insertRecord(); showList()">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-disabled="myForm.$invalid || info.nome == null || info.telefone == null || info.email == null || info.nome.length < 1 || info.telefone.length < 1 || info.email.length < 1" ng-click="insertRecord(); showList()" ng-model="buttonSend">
 						Enviar
 					</button>
 				</div>
+				
 			</div>
+			
+			<! Segunda das duas colunas - é a da direita, com a lista de pessoas>
 			<div class="md-cell mdl-cell--7-col mdl-cell--5-col-tablet mdl-cell--3-col-phone" id = "divList">
 				<!-- Icon List -->
 				
+				<! Lista cujos itens são obtidos a partir da iteração do objeto JSON serializado obtido pelo pymongo, intermediado pelo Flask>
 				<h1 ng-repeat="x in records">{{x}}</h1>
-
 				<ul class="demo-list-three mdl-list" id="peopleList">
 					<li class="mdl-list__item mdl-list__item--three-line" ng-repeat = "x in myData | orderBy:'nome'">
 						<span class="mdl-list__item-primary-content">
+							<! Obtenção do ícone de pessoa>
 							<i class="material-icons mdl-list__item-avatar">person</i>
 							<span>{{'{{x.nome}}'}}</span>
 							<span class="mdl-list__item-text-body">
